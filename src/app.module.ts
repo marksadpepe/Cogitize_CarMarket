@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { config } from 'src/config/config';
 import { Config } from 'src/config/interfaces/config.interface';
+import { UserModule } from 'src/modules/user/user.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { Config } from 'src/config/interfaces/config.interface';
         logging: configService.get('database.logging', { infer: true }),
       }),
     }),
+    UserModule,
   ],
 })
 export class AppModule {}
