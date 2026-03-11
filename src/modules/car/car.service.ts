@@ -110,7 +110,7 @@ export class CarService {
         carModel,
         year,
         publishDate,
-        image: image?.url,
+        imageId: image?.id,
         description,
       };
     });
@@ -157,10 +157,9 @@ export class CarService {
       vin: maskedVin,
       description,
       publishDate,
-      images: images.map(({ id: fileId, title, url, mimeType, size }) => ({
+      images: images.map(({ id: fileId, title, mimeType, size }) => ({
         id: fileId,
         title,
-        url,
         mimeType,
         size,
       })),

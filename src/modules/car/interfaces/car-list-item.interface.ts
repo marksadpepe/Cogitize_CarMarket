@@ -8,6 +8,6 @@ export interface CarListItem {
   carModel: CarModel;
   year: number;
   publishDate: Date;
-  image?: string;
+  imageId?: string;
   description?: string;
 }

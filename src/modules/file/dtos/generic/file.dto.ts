@@ -10,9 +10,6 @@ export class FileDto implements File {
   title: string;
 
   @IsString()
-  url: string;
-
-  @IsString()
   mimeType: string;
 
   @IsNumber()

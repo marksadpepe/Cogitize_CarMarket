@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MinioService } from 'nestjs-minio-client';
+import { Readable } from 'stream';
 import { Repository } from 'typeorm';
 
 import { Config } from 'src/config/interfaces/config.interface';
@@ -29,12 +30,30 @@ export class FileService {
     this.baseUrl = `${endpoint}/${this.bucket}`;
   }
 
+  async getFile(id: string): Promise<{ entity: FileEntity; stream: Readable }> {
+    const entity = await this.fileRepository.findOne({
+      where: {
+        id,
+      },
+    });
+
+    if (!entity) {
+      throw new NotFoundException('File not found');
+    }
+
+    const { title } = entity;
+    const stream = await this.minioService.client.getObject(this.bucket, title);
+
+    return { entity, stream };
+  }
+
   async deleteFiles(files: FileEntity[]): Promise<void> {
     await Promise.all(
       files.map(async (file) => {
-        const { title } = file;
+        const { id: fileId, title } = file;
 
         await this.minioService.client.removeObject(this.bucket, title);
+        await this.fileRepository.softDelete(fileId);
       }),
     );
   }

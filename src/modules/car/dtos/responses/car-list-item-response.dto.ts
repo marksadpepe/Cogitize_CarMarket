@@ -31,8 +31,8 @@ export class CarListItemResponseDto implements CarListItem {
   publishDate: Date;
 
   @IsOptional()
-  @IsString()
-  image?: string;
+  @IsUUID('4')
+  imageId?: string;
 
   @IsOptional()
   @IsString()

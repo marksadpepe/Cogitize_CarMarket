@@ -5,6 +5,7 @@ import { MinioModule } from 'nestjs-minio-client';
 
 import { Config } from 'src/config/interfaces/config.interface';
 import { FileEntity } from 'src/modules/file/entities/file.entity';
+import { FileController } from 'src/modules/file/file.controller';
 import { FileService } from 'src/modules/file/file.service';
 
 @Module({
@@ -33,6 +34,7 @@ import { FileService } from 'src/modules/file/file.service';
       },
     }),
   ],
+  controllers: [FileController],
   providers: [FileService],
   exports: [FileService],
 })
