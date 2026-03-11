@@ -15,7 +15,7 @@ import { UpdateCar } from 'src/modules/car/interfaces/update-car.interface';
 import { Car } from 'src/modules/car/interfaces/car.interface';
 import { CarListItem } from 'src/modules/car/interfaces/car-list-item.interface';
 import { CreateCarData } from 'src/modules/car/interfaces/payload/create-car-data.interface';
-import { UpdateCarPayload } from 'src/modules/car/interfaces/payload/update-car-payload.interface';
+import { UpdateCarData } from 'src/modules/car/interfaces/payload/update-car-data.interface';
 import { CarEntity } from 'src/modules/car/entities/car.entity';
 import { UserEntity } from 'src/modules/user/entities/user.entity';
 
@@ -170,7 +170,7 @@ export class CarService {
   async updateCar(
     id: string,
     userId: string,
-    payload: UpdateCarPayload,
+    data: UpdateCarData,
   ): Promise<UpdateCar> {
     const car = await this.carRepository.findOne({
       relations: {
@@ -193,9 +193,7 @@ export class CarService {
       throw new ForbiddenException();
     }
 
-    const {
-      data: { carManufacturer, carModel, description, vin, year },
-    } = payload;
+    const { carManufacturer, carModel, description, vin, year } = data;
     const { affected } = await this.carRepository.update(id, {
       carManufacturer,
       carModel,
@@ -211,6 +209,7 @@ export class CarService {
     const car = await this.carRepository.findOne({
       relations: {
         owner: true,
+        images: true,
       },
       where: {
         id,
@@ -223,11 +222,14 @@ export class CarService {
 
     const {
       owner: { id: ownerId },
+      images,
     } = car;
 
     if (ownerId !== userId) {
       throw new ForbiddenException();
     }
+
+    await this.fileService.deleteFiles(images);
 
     const { affected } = await this.carRepository.softDelete(id);
 

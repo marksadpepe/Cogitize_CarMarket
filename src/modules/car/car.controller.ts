@@ -54,6 +54,7 @@ export class CarController {
     return await this.carService.getCars();
   }
 
+  @ApiBearerAuth()
   @UseGuards(OptionalJwtGuard)
   @Get(':id')
   async getCarById(
@@ -71,7 +72,9 @@ export class CarController {
     @Body() body: UpdateCarRequestDto,
     @CurrentUser() user: JwtPayload,
   ): Promise<UpdateCarResponseDto> {
-    return await this.carService.updateCar(id, user.sub, body);
+    const { sub: userId } = user;
+
+    return await this.carService.updateCar(id, userId, body);
   }
 
   @ApiBearerAuth()
@@ -82,6 +85,8 @@ export class CarController {
     @Param('id') id: string,
     @CurrentUser() user: JwtPayload,
   ): Promise<DeleteCarResponseDto> {
-    return await this.carService.deleteCar(id, user.sub);
+    const { sub: userId } = user;
+
+    return await this.carService.deleteCar(id, userId);
   }
 }

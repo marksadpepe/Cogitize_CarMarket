@@ -12,6 +12,7 @@ import { FileDto } from 'src/modules/file/dtos/generic/file.dto';
 import { CarManufacturer } from 'src/modules/car/interfaces/car-manufacturer.enum';
 import { CarModel } from 'src/modules/car/interfaces/car-model.enum';
 import { Car } from 'src/modules/car/interfaces/car.interface';
+import { Type } from 'class-transformer';
 
 export class CarResponseDto implements Car {
   @IsUUID('4')
@@ -40,5 +41,6 @@ export class CarResponseDto implements Car {
   publishDate: Date;
 
   @IsArray()
+  @Type(() => FileDto)
   images: FileDto[];
 }

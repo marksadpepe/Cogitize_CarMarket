@@ -29,6 +29,16 @@ export class FileService {
     this.baseUrl = `${endpoint}/${this.bucket}`;
   }
 
+  async deleteFiles(files: FileEntity[]): Promise<void> {
+    await Promise.all(
+      files.map(async (file) => {
+        const { title } = file;
+
+        await this.minioService.client.removeObject(this.bucket, title);
+      }),
+    );
+  }
+
   async uploadFile(file: Express.Multer.File): Promise<FileEntity> {
     const { originalname, mimetype, buffer, size } = file;
 

@@ -1,4 +1,3 @@
-import { Type } from 'class-transformer';
 import {
   IsEnum,
   IsInt,
@@ -8,15 +7,13 @@ import {
   Max,
   MaxLength,
   Min,
-  ValidateNested,
 } from 'class-validator';
 
 import { CarManufacturer } from 'src/modules/car/interfaces/car-manufacturer.enum';
 import { CarModel } from 'src/modules/car/interfaces/car-model.enum';
 import { UpdateCarData } from 'src/modules/car/interfaces/payload/update-car-data.interface';
-import { UpdateCarPayload } from 'src/modules/car/interfaces/payload/update-car-payload.interface';
 
-class UpdateCarDataDto implements UpdateCarData {
+export class UpdateCarRequestDto implements UpdateCarData {
   @IsOptional()
   @IsEnum(CarManufacturer)
   carManufacturer?: CarManufacturer;
@@ -40,10 +37,4 @@ class UpdateCarDataDto implements UpdateCarData {
   @IsString()
   @MaxLength(240)
   description?: string;
-}
-
-export class UpdateCarRequestDto implements UpdateCarPayload {
-  @ValidateNested()
-  @Type(() => UpdateCarDataDto)
-  data: UpdateCarDataDto;
 }

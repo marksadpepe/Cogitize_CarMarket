@@ -7,6 +7,8 @@ import { DatabaseNamingStrategy } from 'src/db/naming.strategy';
 import { FileModule } from 'src/modules/file/file.module';
 import { UserModule } from 'src/modules/user/user.module';
 import { CarModule } from 'src/modules/car/car.module';
+import { AppController } from 'src/app.controller';
+import { AppService } from 'src/app.service';
 
 @Module({
   imports: [
@@ -33,5 +35,7 @@ import { CarModule } from 'src/modules/car/car.module';
     UserModule,
     CarModule,
   ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

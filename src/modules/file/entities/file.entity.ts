@@ -28,10 +28,9 @@ export class FileEntity {
   size: number;
 
   @ManyToOne(() => CarEntity, (car) => car.images, {
-    nullable: true,
-    onDelete: 'SET NULL',
+    onDelete: 'CASCADE',
   })
-  car?: CarEntity;
+  car: CarEntity;
 
   @CreateDateColumn()
   createdAt: Date;

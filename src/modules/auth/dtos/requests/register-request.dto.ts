@@ -1,10 +1,8 @@
-import { Type } from 'class-transformer';
-import { IsEmail, IsString, MinLength, ValidateNested } from 'class-validator';
+import { IsEmail, IsString, MinLength } from 'class-validator';
 
 import { RegisterData } from 'src/modules/auth/interfaces/payload/register-data.interface';
-import { RegisterPayload } from 'src/modules/auth/interfaces/payload/register-payload.interface';
 
-class RegisterDataDto implements RegisterData {
+export class RegisterRequestDto implements RegisterData {
   @IsEmail()
   email: string;
 
@@ -17,10 +15,4 @@ class RegisterDataDto implements RegisterData {
 
   @IsString()
   lastName: string;
-}
-
-export class RegisterRequestDto implements RegisterPayload {
-  @ValidateNested()
-  @Type(() => RegisterDataDto)
-  data: RegisterDataDto;
 }

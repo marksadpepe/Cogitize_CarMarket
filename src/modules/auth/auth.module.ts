@@ -16,6 +16,6 @@ import { UserEntity } from 'src/modules/user/entities/user.entity';
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtGuard, OptionalJwtGuard],
-  exports: [JwtGuard, OptionalJwtGuard],
+  exports: [JwtGuard, OptionalJwtGuard, JwtModule],
 })
 export class AuthModule {}

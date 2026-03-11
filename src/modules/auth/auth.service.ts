@@ -12,9 +12,9 @@ import { Repository } from 'typeorm';
 import { Config } from 'src/config/interfaces/config.interface';
 import { RefreshTokenEntity } from 'src/modules/auth/entities/refresh-token.entity';
 import { JwtPayload } from 'src/modules/auth/interfaces/jwt-payload.interface';
-import { LoginPayload } from 'src/modules/auth/interfaces/payload/login-payload.interface';
-import { RefreshTokenPayload } from 'src/modules/auth/interfaces/payload/refresh-token-payload.interface';
-import { RegisterPayload } from 'src/modules/auth/interfaces/payload/register-payload.interface';
+import { LoginData } from 'src/modules/auth/interfaces/payload/login-data.interface';
+import { RefreshTokenData } from 'src/modules/auth/interfaces/payload/refresh-token-data.interface';
+import { RegisterData } from 'src/modules/auth/interfaces/payload/register-data.interface';
 import { Tokens } from 'src/modules/auth/interfaces/tokens.interface';
 import { UserEntity } from 'src/modules/user/entities/user.entity';
 import { UserRole } from 'src/modules/user/interfaces/user-role.enum';
@@ -30,10 +30,8 @@ export class AuthService {
     private readonly configService: ConfigService<Config, true>,
   ) {}
 
-  async register(payload: RegisterPayload): Promise<Tokens> {
-    const {
-      data: { email, password, firstName, lastName },
-    } = payload;
+  async register(data: RegisterData): Promise<Tokens> {
+    const { email, password, firstName, lastName } = data;
 
     const existingUser = await this.userRepository.findOne({
       where: { email },
@@ -58,10 +56,8 @@ export class AuthService {
     return await this.generateTokens(user);
   }
 
-  async login(payload: LoginPayload): Promise<Tokens> {
-    const {
-      data: { email, password },
-    } = payload;
+  async login(data: LoginData): Promise<Tokens> {
+    const { email, password } = data;
 
     const user = await this.userRepository.findOne({ where: { email } });
 
@@ -80,10 +76,8 @@ export class AuthService {
     return await this.generateTokens(user);
   }
 
-  async refresh(payload: RefreshTokenPayload): Promise<Tokens> {
-    const {
-      data: { refreshToken },
-    } = payload;
+  async refresh(data: RefreshTokenData): Promise<Tokens> {
+    const { refreshToken } = data;
 
     const refreshSecret = this.configService.get('jwt.refreshSecret', {
       infer: true,

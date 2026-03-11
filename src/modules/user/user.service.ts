@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 
 import { UserEntity } from 'src/modules/user/entities/user.entity';
 import { DeleteUser } from 'src/modules/user/interfaces/delete-user.interface';
-import { UpdateUserPayload } from 'src/modules/user/interfaces/payload/update-user-payload.interface';
+import { UpdateUserData } from 'src/modules/user/interfaces/payload/update-user-data.interface';
 import { UpdateUser } from 'src/modules/user/interfaces/update-user.interface';
 import { User } from 'src/modules/user/interfaces/user.interface';
 
@@ -27,17 +27,12 @@ export class UserService {
     return { id: userId, email, firstName, lastName };
   }
 
-  async updateUser(
-    id: string,
-    payload: UpdateUserPayload,
-  ): Promise<UpdateUser> {
+  async updateUser(id: string, data: UpdateUserData): Promise<UpdateUser> {
     const exists = await this.userRepository.exists({ where: { id } });
 
     if (!exists) {
       throw new NotFoundException('User not found');
     }
-
-    const { data } = payload;
 
     const { affected } = await this.userRepository.update(id, data);
 

@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
   IsEnum,
@@ -35,4 +36,12 @@ export class CreateCarRequestDto implements CreateCarData {
   @IsString()
   @MaxLength(240)
   description?: string;
+
+  @IsOptional()
+  @ApiProperty({
+    type: 'array',
+    items: { type: 'string', format: 'binary' },
+    required: false,
+  })
+  images?: Express.Multer.File[];
 }
