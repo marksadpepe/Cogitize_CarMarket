@@ -84,11 +84,11 @@ npm run start:dev
 ## Scripts
 
 ```bash
-npm run start:dev     # Start in watch mode
-npm run build         # Compile TypeScript to dist/
-npm run lint          # Run ESLint with autofix
-npm test              # Unit tests
-npm run typeorm:generate-migration --name=MigrationName # Generate a migration from entity changes
-npm run typeorm:run-migrations # Run pending migrations
-npm run typeorm:revert-migration # Revert the last migration
-npm run typeorm:create-migration --name=MigrationName # Create an empty migration file
+npm run start:dev                                        # Start in watch mode
+npm run build                                            # Compile TypeScript to dist/
+npm run lint                                             # Run ESLint with autofix
+npm test                                                 # Unit tests
+npm run typeorm:generate-migration --name=MigrationName  # Generate a migration from entity changes
+npm run typeorm:run-migrations                           # Run pending migrations
+npm run typeorm:revert-migration                         # Revert the last migration
+npm run typeorm:create-migration --name=MigrationName    # Create an empty migration file
