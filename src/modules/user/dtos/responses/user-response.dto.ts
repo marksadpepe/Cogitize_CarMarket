@@ -1,9 +1,9 @@
-import { IsString } from 'class-validator';
+import { IsString, IsUUID } from 'class-validator';
 
 import { User } from 'src/modules/user/interfaces/user.interface';
 
 export class UserResponseDto implements User {
-  @IsString()
+  @IsUUID('4')
   id: string;
 
   @IsString()

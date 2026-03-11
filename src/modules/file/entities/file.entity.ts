@@ -3,9 +3,12 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
+import { CarEntity } from 'src/modules/car/entities/car.entity';
 
 @Entity()
 export class FileEntity {
@@ -23,6 +26,12 @@ export class FileEntity {
 
   @Column()
   size: number;
+
+  @ManyToOne(() => CarEntity, (car) => car.images, {
+    nullable: true,
+    onDelete: 'SET NULL',
+  })
+  car?: CarEntity;
 
   @CreateDateColumn()
   createdAt: Date;

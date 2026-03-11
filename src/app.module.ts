@@ -6,6 +6,7 @@ import { Config } from 'src/config/interfaces/config.interface';
 import { DatabaseNamingStrategy } from 'src/db/naming.strategy';
 import { FileModule } from 'src/modules/file/file.module';
 import { UserModule } from 'src/modules/user/user.module';
+import { CarModule } from 'src/modules/car/car.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { UserModule } from 'src/modules/user/user.module';
     }),
     FileModule,
     UserModule,
+    CarModule,
   ],
 })
 export class AppModule {}
