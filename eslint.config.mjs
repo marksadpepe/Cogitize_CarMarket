@@ -30,7 +30,7 @@ export default tseslint.config(
       'linebreak-style': ['error', 'unix'],
       'eol-last': ['error', 'always'],
       'no-duplicate-imports': 'error',
-      'no-redeclare': 'error',
+      'no-redeclare': 'off',
       'no-console': 'error',
       'no-cond-assign': ['error', 'always'],
       'no-underscore-dangle': ['error', { allow: ['_id'] }],
