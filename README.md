@@ -19,6 +19,7 @@ docker-compose up -d
 ```
 
 The API will be available at `http://localhost:3000` (or any port, if you specified one).
+
 The Swagger will be available at `http://localhost:3000/api/swagger`.
 
 ## Running Locally
