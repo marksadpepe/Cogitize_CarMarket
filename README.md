@@ -4,8 +4,6 @@ REST API for a car sales platform.
 
 ## Running with Docker Compose
 
-This is the easiest way to run the full stack (app + PostgreSQL + MinIO).
-
 **1. Copy the example env file:**
 
 ```bash
@@ -21,6 +19,7 @@ docker-compose up -d
 ```
 
 The API will be available at `http://localhost:3000` (or any port, if you specified one).
+The Swagger will be available at `http://localhost:3000/api/swagger`.
 
 ## Running Locally
 
